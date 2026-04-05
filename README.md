@@ -244,6 +244,33 @@ npm run build
 
 ---
 
+## Deployment
+
+Example: **Railway**
+
+1. Push the repository to GitHub (or another Git host Railway supports).
+2. Create a project and deploy the repository as a **Node** service.
+3. Add a **PostgreSQL** plugin and connect `DATABASE_URL` to the web service.
+4. Set `JWT_SECRET` (long random string) and optionally `PUBLIC_API_URL` to your public HTTPS origin (no trailing slash).
+5. Typical commands:
+   - **Build:** `npm install && npx prisma generate && npm run build`
+   - **Start:** `npx prisma migrate deploy && npm run start:prod`
+6. Run **`npm run db:seed`** once against the same database (from CI, a one-off job, or your machine with production `DATABASE_URL` in `.env`) if you need demo users.
+
+After deployment: rotate demo passwords, restrict **CORS** to real front-end origins, and treat `/docs` exposure according to your security policy.
+
+### Render.com
+
+- **Root directory:** Leave **empty** unless the app lives in a subfolder (e.g. `backend/`). It must be the directory that contains **`package.json`**, **`prisma/`**, and **`src/`**.
+- **Build:** `npm install --include=dev && npx prisma generate && npm run build` (or `npm install` if `@nestjs/cli` / `typescript` / `prisma` are in `dependencies`).
+- **Start:** `npx prisma migrate deploy && npm run start:prod`  
+  Production entry is resolved by **`run-prod.cjs`**, which loads `dist/main.js` or, if present, `dist/src/main.js`, relative to the repo root—so the app still starts if the working directory is wrong.
+- **`tsconfig.build.json`** pins **`rootDir: ./src`** so `nest build` emits **`dist/main.js`** consistently.
+
+If you see `Cannot find module '.../src/dist/main'`, the service was often started with the wrong **working directory** (e.g. **Root Directory** set to `src` only). Clear **Root Directory** or set it to the folder that contains `package.json` and `prisma/`.
+
+---
+
 ## Production notes
 
 | Topic | Recommendation |
