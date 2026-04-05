@@ -24,8 +24,7 @@ This repository contains the **server only**. A separate web or mobile client wo
 14. [Project layout](#project-layout)
 15. [Assumptions and limits](#assumptions-and-limits)
 16. [Troubleshooting](#troubleshooting)
-17. [Updating your Git branch](#updating-your-git-branch)
-18. [License](#license)
+
 
 ---
 
