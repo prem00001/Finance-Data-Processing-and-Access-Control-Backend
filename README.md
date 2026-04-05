@@ -14,16 +14,16 @@ This repository contains the **server only**. A separate web or mobile client wo
 4. [Data model](#data-model)
 5. [Authentication and roles](#authentication-and-roles)
 6. [HTTP API overview](#http-api-overview)
-7. [Getting started](#getting-started)
-8. [Environment variables](#environment-variables)
-9. [Using the API](#using-the-api)
-10. [Seed data](#seed-data)
-11. [Testing and build](#testing-and-build)
-12. [Deployment](#deployment)
-13. [Production notes](#production-notes)
-14. [Project layout](#project-layout)
-15. [Assumptions and limits](#assumptions-and-limits)
-16. [Troubleshooting](#troubleshooting)
+8. [Getting started](#getting-started)
+9. [Environment variables](#environment-variables)
+10. [Using the API](#using-the-api)
+11. [Seed data](#seed-data)
+12. [Testing and build](#testing-and-build)
+13. [Deployment](#deployment)
+14. [Production notes](#production-notes)
+15. [Project layout](#project-layout)
+16. [Assumptions and limits](#assumptions-and-limits)
+17. [Troubleshooting](#troubleshooting)
 
 
 ---
@@ -128,6 +128,20 @@ Analysts see all non-deleted records (read-only). Admins may optionally assign a
 | GET | `/dashboard/summary` | JWT | Aggregates and trends |
 
 Full schemas, examples, and **Try** requests: open **`/docs`** after the server is running.
+
+---
+
+# Live deployment (Render)
+
+Try the running API (no install required):
+
+| Link | What it does |
+|------|----------------|
+| [Health check](https://finance-data-processing-and-access-4eja.onrender.com/health) | JSON status — use this to see if the service is up. |
+| [API reference & Try it](https://finance-data-processing-and-access-4eja.onrender.com/docs) | Interactive docs — log in, then call protected endpoints. |
+| [Root](https://finance-data-processing-and-access-4eja.onrender.com) | Redirects to `/docs`. |
+
+**Note:** On Render’s free tier the service may **sleep** after idle time; the first request after sleep can take **30–60+ seconds**. Demo logins and usage are described in [Seed data](#seed-data) below.
 
 ---
 
