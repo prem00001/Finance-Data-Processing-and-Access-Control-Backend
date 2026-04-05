@@ -209,7 +209,6 @@ npm run db:seed
 4. Open the **authentication** section in RapiDoc and paste **only** the token. RapiDoc sends `Authorization: Bearer <token>`. If you paste `Bearer eyJ...`, many clients will send a **double** `Bearer` prefix and return **401**.
 5. Call protected endpoints (e.g. `GET /dashboard/summary`, `GET /records`).
 
-On a deployed host, set **`PUBLIC_API_URL`** so Try requests use your public origin.
 
 ### From code or Postman
 
@@ -243,23 +242,6 @@ npm run build
 
 - Unit tests cover services, permissions, guards, and utilities.
 - E2E includes `/health` without requiring a database connection for basic smoke coverage.
-
----
-
-## Deployment
-
-Example: **Railway**
-
-1. Push the repository to GitHub (or another Git host Railway supports).
-2. Create a project and deploy the repository as a **Node** service.
-3. Add a **PostgreSQL** plugin and connect `DATABASE_URL` to the web service.
-4. Set `JWT_SECRET` (long random string) and optionally `PUBLIC_API_URL` to your public HTTPS origin (no trailing slash).
-5. Typical commands:
-   - **Build:** `npm install && npx prisma generate && npm run build`
-   - **Start:** `npx prisma migrate deploy && npm run start:prod`
-6. Run **`npm run db:seed`** once against the same database (from CI, a one-off job, or your machine with production `DATABASE_URL` in `.env`) if you need demo users.
-
-After deployment: rotate demo passwords, restrict **CORS** to real front-end origins, and treat `/docs` exposure according to your security policy.
 
 ---
 
@@ -317,37 +299,3 @@ docker-compose.yml
 | `npm install` EPERM (Windows) | File locks | Close other processes, remove `node_modules`, retry |
 | Try requests hit wrong host when deployed | Missing `PUBLIC_API_URL` | Set to your public API base URL |
 
----
-
-## Updating your Git branch
-
-If the project is already on GitHub and you want to publish these README (and any other) changes:
-
-```bash
-cd path/to/finance-dashboard-api
-git status
-git add README.md
-# or: git add .
-git commit -m "docs: rewrite README for submission"
-git push origin main
-```
-
-Use your real branch name if it is not `main` (e.g. `git push origin your-branch`). If the remote branch tracks your local branch:
-
-```bash
-git push
-```
-
-If you have not set the remote yet:
-
-```bash
-git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
-git branch -M main
-git push -u origin main
-```
-
----
-
-## License
-
-MIT
