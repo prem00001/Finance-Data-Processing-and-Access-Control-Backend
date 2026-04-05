@@ -13,7 +13,7 @@ This repository contains the **server only**. A separate web or mobile client wo
 3. [How the system works](#how-the-system-works)
 4. [Data model](#data-model)
 5. [Authentication and roles](#authentication-and-roles)
-6. [HTTP API overview](#http-api-overview)
+6. [HTTP API overview & Live Deployment](#http-api-overview)
 8. [Getting started](#getting-started)
 9. [Environment variables](#environment-variables)
 10. [Using the API](#using-the-api)
@@ -129,8 +129,6 @@ Analysts see all non-deleted records (read-only). Admins may optionally assign a
 
 Full schemas, examples, and **Try** requests: open **`/docs`** after the server is running.
 
----
-
 # Live deployment (Render)
 
 Try the running API (no install required):
@@ -141,7 +139,7 @@ Try the running API (no install required):
 | [API reference & Try it](https://finance-data-processing-and-access-4eja.onrender.com/docs) | Interactive docs — log in, then call protected endpoints. |
 | [Root](https://finance-data-processing-and-access-4eja.onrender.com) | Redirects to `/docs`. |
 
-**Note:** On Render’s free tier the service may **sleep** after idle time; the first request after sleep can take **30–60+ seconds**. Demo logins and usage are described in [Seed data](#seed-data) below.
+**Note:** On Render’s free tier the service may **sleep** after idle time; the first request after sleep can take **30–60+ seconds**.
 
 ---
 
