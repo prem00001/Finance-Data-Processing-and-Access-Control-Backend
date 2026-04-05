@@ -1,0 +1,60 @@
+// Finance dashboard — PostgreSQL (see docker-compose). Uses Decimal for money.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  VIEWER
+  ANALYST
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum EntryType {
+  INCOME
+  EXPENSE
+}
+
+model User {
+  id           String       @id @default(uuid())
+  email        String       @unique
+  passwordHash String       @map("password_hash")
+  name         String
+  role         UserRole     @default(VIEWER)
+  status       UserStatus   @default(ACTIVE)
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+  records      FinancialRecord[]
+
+  @@map("users")
+}
+
+model FinancialRecord {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount      Decimal   @db.Decimal(19, 4)
+  type        EntryType
+  category    String    @db.VarChar(120)
+  occurredAt  DateTime  @map("occurred_at")
+  notes       String?   @db.Text
+  deletedAt   DateTime? @map("deleted_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId, occurredAt(sort: Desc)])
+  @@index([category])
+  @@index([type])
+  @@index([deletedAt])
+  @@map("financial_records")
+}
